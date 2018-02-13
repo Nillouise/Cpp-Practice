@@ -9,7 +9,7 @@ class Simple
 {  
     public:  
         Simple(int p = 0)  
-        {     
+        {
             number = p;  
             std::cout << "Simple::" << number << std::endl;  
         }     
