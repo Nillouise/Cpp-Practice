@@ -21,6 +21,7 @@ void process(std::shared_ptr<int> ptr)
 int main()
 {
     std::shared_ptr<int> p(new int(42));
+    std::shared_ptr<int> r(p);
     process(std::shared_ptr<int>(p));
 
     /**
