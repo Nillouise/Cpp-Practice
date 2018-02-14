@@ -34,7 +34,35 @@ class QueryResult
 public:
     shared_ptr<set<int>> pSet;
     shared_ptr<vector<string>> pVec;
+    shared_ptr<ifstream> file;
+    
+    set<int>::iterator begin();
+    set<int>::iterator end();
+    
+    shared_ptr<ifstream> get_file();
 };
+
+shared_ptr<ifstream> QueryResult::get_file()
+{
+    return file;
+}
+
+set<int>::iterator QueryResult::begin()
+{
+    if(!pSet)
+    {
+        pSet = shared_ptr<set<int>>(new set<int>);
+    }
+    return pSet->begin();
+}
+set<int>::iterator QueryResult::end()
+{
+    if(!pSet)
+    {
+        pSet = shared_ptr<set<int>>(new set<int>);
+    }
+    return pSet->end();
+}
 
 QueryResult TextQuery::query(const string &s)
 {
