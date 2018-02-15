@@ -65,6 +65,7 @@ void StrVec::resize(size_t n)
 {
     if(n>capacity())
     {
+        //这个实现不符合resize的语义，因为resize应该的所有元素都应该被构造完成的
         reserve(n);
     }else if(n<capacity())
     {
@@ -104,7 +105,9 @@ void StrVec::free_lambda_version()
 {
     if(elements)
     {
-        for_each(elements,first_free;[](string *s){alloc.destroy(s);});
+        //注意这个lambda表达式，elements 和first_free 都是指针，但string s不应该也不能是指针
+        //另外是捕获this变量才是对的
+        for_each(elements,first_free,[this](string &s){alloc.destroy(&s);});
         alloc.deallocate(elements,cap-elements);
     }
 }

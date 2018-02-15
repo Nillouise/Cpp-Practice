@@ -14,6 +14,7 @@ public:
         alloc.deallocate(p,cap);
     }
     String(const String &rhs);
+    StrVec(StrVec &&s)noexcept;
 private:
     char *p=nullptr;
     int cap = 0;
@@ -21,6 +22,11 @@ private:
 };
 allocator<char> String::alloc = allocator<char>();
 
+StrVec::StrVec(StrVec &&s)noexcept
+:elements(s.elements),first_free(s.first_free)noexcept
+{
+    s.elements = s.first_free = s.cap = nullptr;
+}
 
 String::String(const String &rhs)
 {
