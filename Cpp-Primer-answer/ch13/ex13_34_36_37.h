@@ -69,4 +69,3 @@ private:
 void swap(Folder &, Folder &);
 
 #endif // MESSAGE
-
