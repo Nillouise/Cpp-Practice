@@ -33,7 +33,10 @@ public:
 
     HasPtr& operator=(HasPtr tmp) 
     {
-        this->swap(tmp);
+        //据实验sort不会调用自定义版本swap函数，sort应该调用的是std::swap,
+        //而std::swap 又会调用赋值赋值函数
+        // this->swap(tmp);
+        *this = tmp;
         return *this;
     }
 
