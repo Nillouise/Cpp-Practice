@@ -10,8 +10,10 @@ public:
     int id;
     Employee(){seed++;id=seed;}
     Employee(const string &name):name(name),id(seed++){}    
+    const int& getId()const{return id;}
 };
 
+int Employee::seed = 0;
 
 int main()
 {
@@ -19,7 +21,10 @@ int main()
     
     ios::sync_with_stdio(false);
     
-    
+    Employee ee;
+    const int& kr = ee.getId();
+    cout<<kr<<endl;
+    cout<<ee.getId();
     
     
     return 0;
