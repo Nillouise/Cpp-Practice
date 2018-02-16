@@ -20,6 +20,7 @@ int main()
     
     Eq eq;
     vector<int> vec(10,7);
+    //这里可以不用bind，直接在创建Eq对象的时候把要比较的值赋进去。
     replace_if(vec.begin(),vec.end(),bind(eq,placeholders::_1,7),3);
     
     for(auto a:vec)
