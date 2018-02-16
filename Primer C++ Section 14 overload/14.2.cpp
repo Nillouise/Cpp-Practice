@@ -36,7 +36,7 @@ public:
             units_sold+=rhs.units_sold;
             revenue += rhs.revenue;
         }
-        return &this;
+        return *this;
     }
     
 	// operations on Sales_data objects
@@ -55,7 +55,7 @@ ostream& operator<<(ostream& stream,const Sales_data& data)
     return stream;
 }
 
-istream& operator>>(istream& stream,const Sales_data& data)
+istream& operator>>(istream& stream,Sales_data& data)
 {
     read(stream,data);
     return stream;
@@ -130,7 +130,8 @@ int main()
     
     ios::sync_with_stdio(false);
     
-    
+    Sales_data d;
+	cout<<d;
     
     
     return 0;
