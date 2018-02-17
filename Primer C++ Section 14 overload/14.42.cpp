@@ -16,5 +16,7 @@ int main()
     vector<string>strs;
     find_if(strs.begin(),strs.end(),bind(not_equal_to<string>(),placeholders::_1,"pooh"));
     
+    transform(vec.begin(),vec.end(),vec.begin(),bind(multiplies<int>(),placeholders::_1,2));
+    
     return 0;
 }
