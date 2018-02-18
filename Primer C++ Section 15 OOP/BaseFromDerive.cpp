@@ -11,6 +11,7 @@ public:
     }
     Base(Base &b){
         b.prin();
+        //引用只对函数进行动态绑定，成员变量仍然在编译器就确定了
         this->x = b.x;
         cout<<"cout base.x :" <<b.x<<endl;//
     }
