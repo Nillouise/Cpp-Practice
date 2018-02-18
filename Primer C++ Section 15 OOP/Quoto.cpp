@@ -34,16 +34,61 @@ private:
     double discount = 0.0;
 };
 
+Bulk_quote::Bulk_quote(const string& s,double sales_price, size_t qty,double dis):
+    Quote(s,sales_price),
+    min_qty(qty),
+    discount(dis)
+{
+    
+}
+
+double Bulk_quote::net_price(size_t n)const 
+{
+    
+    return n * price * ( n >= min_qty ? 1 - discount : 1);
+}
+
+double print_total (std::ostream& os, const Quote& item, size_t n);
+
+class Limit_quote:public Quote
+{
+public:
+    Limit_quote(const string &book,double sales_price,int max_number,double disscount):
+        Quote(book,sales_price),
+        max_number(max_number),
+        disscount(disscount){}
+    virtual double net_price(size_t n)const override
+    {
+        if(n<=max_number)
+            return n*disscount*price;
+        else
+            return max_number*disscount*price+(n-max_number)*disscount*price;
+    }
+private:
+    int max_number;
+    double disscount;
+};
+
 
 
 int main()
 {
-    //freopen("I:\\Algorithms\\git\\Algorithm\\Algorithm\\input.txt","r",stdin);//
-    
-    ios::sync_with_stdio(false);
-    
-    
-    
-    
+    // ex15.6
+    Quote q("textbook", 10.60);
+    Bulk_quote bq("textbook", 10.60, 10, 0.3);
+
+    print_total(std::cout, q, 12);
+    print_total(std::cout, bq, 12);
+
     return 0;
+}
+
+double print_total(std::ostream &os, const Quote &item, size_t n)
+{
+    double ret = item.net_price(n);
+
+    os << "ISBN:" << item.isbn()
+       << "# sold: " << n << " total due: " << ret << std::endl;
+
+    return ret;
 }
