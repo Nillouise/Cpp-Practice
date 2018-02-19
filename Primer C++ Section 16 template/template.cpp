@@ -14,7 +14,7 @@ class Foo
 {
 public:
     bool operator<(const Foo&f)const{
-        return less<const Foo*>()(this,&f);
+        return less<const Foo*>()(this,&f); // 嗯，这段代码需要加const才能保持类型一致
     }
 };
 
