@@ -5,6 +5,7 @@ typedef long long LL;
 
 
 
+
 int main()
 {
     //freopen("I:\\Algorithms\\git\\Algorithm\\Algorithm\\input.txt","r",stdin);//

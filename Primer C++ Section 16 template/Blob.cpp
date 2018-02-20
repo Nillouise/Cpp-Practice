@@ -4,15 +4,16 @@ typedef long long LL;
 
 template<typename> class BlobPtr;
 template<typename> class Blob;
-template<typename>
+template<typename T>
     bool operator==(const Blob<T>&,const Blob<T>&);
 
 template<typename T>
-class Blob{
+class Blob {
     friend class BlobPtr<T>;
     friend bool operator==<T>(const Blob<T>&,const Blob<T>&);
 public:
     typedef T value_type;
+    //注意这里要用typename才能引出vector<T>::size_type类型,不然编译器不知道size_type是类型还是一个静态变量
     typedef typename vector<T>::size_type size_type;
     Blob();
     Blob(initializer_list<T> il);
@@ -67,12 +68,11 @@ void Blob<T>::pop_back()
 
 template<typename T>
 Blob<T>::Blob():
-data(make_shared<vector<T>>()){}
+    data(make_shared<vector<T>>()){}
 
 template<typename T>
 Blob<T>::Blob(initializer_list<T> il):
     data(make_shared<vector<T>>(il)){}
-
 
 template<typename T> 
 class BlobPtr
@@ -107,6 +107,7 @@ BlobPtr<T> BlobPtr<T>::operator++(int)
 
 
 
+
 int main()
 {
     //freopen("I:\\Algorithms\\git\\Algorithm\\Algorithm\\input.txt","r",stdin);//
@@ -116,6 +117,11 @@ int main()
     Blob<int> squares = {0,1,2,3,4,5,6,7,8,9};
     for(size_t i=0;i!=squares.size();i++)
         squares[i] = i*i;
+    
+    // for(size_t i=0;i!=squares.size();++i)
+    //     cout<<squares[i]<<" ";
+    
+    
     
     
     

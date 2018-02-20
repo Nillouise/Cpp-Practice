@@ -3,7 +3,8 @@ using namespace std;
 typedef long long LL;
 
 
-
+template<typename T>
+using twin = pair<T,long>;
 
 int main()
 {
@@ -11,8 +12,9 @@ int main()
     
     ios::sync_with_stdio(false);
     
+    twin<string> t={"ok",11};
     
-    
+    cout<<t.first<<endl;
     
     return 0;
 }
