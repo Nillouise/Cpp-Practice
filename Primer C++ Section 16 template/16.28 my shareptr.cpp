@@ -101,7 +101,7 @@ public:
 void fun()
 {
     
-    SP<string> s(new string("first ptr"),[](string *s){delete s;});
+    SP<string> s(new string("first ptr"),[](string *s)-> double {delete s;return 0.0;});
     SP<string> s2(new string("second ptr"),[](string *s){delete s;});
 }
 
