@@ -5,8 +5,6 @@ typedef long long LL;
 
 class DebugDelete;
 
-template<typename T>
-void DebugDelete::operator()(T *p)const;
 
 class DebugDelete
 {
