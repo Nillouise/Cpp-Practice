@@ -17,6 +17,10 @@ public:
     typedef typename vector<T>::size_type size_type;
     Blob();
     Blob(initializer_list<T> il);
+    template<typename It>
+    Blob(It,It);
+    
+    
     size_type size()const{
         return data->size();
     }
@@ -37,6 +41,14 @@ private:
     shared_ptr<vector<T>>data;
     void check(size_type i,const string &msg)const;
 };
+
+template<typename T>
+template<typename It>
+Blob<T>::Blob(It begin,It end)
+{
+    // data = make_shared<vector<T>>(begin,end);
+    data = make_shared<vector<T>>(begin,end);
+}
 
 template<typename T>
 void Blob<T>::check(size_type i,const string &msg)const
@@ -114,10 +126,16 @@ int main()
     
     ios::sync_with_stdio(false);
     
-    Blob<int> squares = {0,1,2,3,4,5,6,7,8,9};
-    for(size_t i=0;i!=squares.size();i++)
-        squares[i] = i*i;
+    vector<int> vec = {1,2,3};
+    Blob<int> q(vec.begin(),vec.end());
     
+    for(int i=0;i!=q.size();i++)
+        cout<<q[i]<<" ";
+    
+    // Blob<int> squares = {0,1,2,3,4,5,6,7,8,9};
+    // for(size_t i=0;i!=squares.size();i++)
+    //     squares[i] = i*i;
+    // 
     // for(size_t i=0;i!=squares.size();++i)
     //     cout<<squares[i]<<" ";
     
