@@ -41,7 +41,7 @@ int main()
     ios::sync_with_stdio(false);
     string s("hi");
     cout<<debug_rep(s)<<endl;
-    cout<<debug_rep(&s)<<endl;    
+    // cout<<debug_rep(&s)<<endl;    
     
     
     return 0;
