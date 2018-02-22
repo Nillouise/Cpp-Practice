@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long LL;
+
 class Disc_quote;
 class Quote{
 public:
@@ -19,6 +20,14 @@ public:
     Quote(Quote&&q) noexcept:bookNo(std::move(q.bookNo)),price(std::move(q.price))
     {
         cout<<"Quote::Quote(Quote&&q)"<<endl;
+    }
+    virtual Quote* clone()const &
+    {
+        return new Quote(*this);
+    }
+    virtual Quote* clone()&&
+    {
+        return new Quote(std::move(*this));
     }
     
     //我看答案会比较一下是不是自赋值，编译器也会比较自赋值吗？
@@ -126,6 +135,15 @@ public:
     {
         // cout<<"min_qty "<<min_qty<<" discount "<<discount<<endl;
     }
+    Bulk_quote *clone()const &
+    {
+        return new Bulk_quote(*this);
+    }
+    Bulk_quote* clone()&&
+    {
+        return new Bulk_quote(std::move(*this));
+    }
+    
 private:
 };
 
@@ -169,25 +187,32 @@ double Disc_quote::net_price(size_t t)const
     return 0.0;
 }
 
-int main()
+
+class Basket
 {
-    // Quote q;
-    Bulk_quote bq,bq2;
+public:
+    void add_item(const shared_ptr<Quote> &sale)
+    {
+        items.insert(sale);
+    }
+    double total_receipt(ostream&) const;
+    void add_item(const Quote& sale)
+    {
+        items.insert(shared_ptr<Quote>(sale.clone()));
+    }
+    void add_item(Quote&& sale)
+    {
+        items.insert(shared_ptr<Quote>(std::move(sale).clone()));
+    }
     
-    bq = std::move(bq2);
-    
-    // ex15.6
-    // Quote q("textbook", 10.60);
-    // Bulk_quote bq("textbook", 10.60, 10, 0.3);
-    // q.debug();
-    // bq.debug();
-    // print_total(std::cout, q, 12);
-    // print_total(std::cout, bq, 12);
-    // Disc_quote d;
-    // d.net_price(0);
-    
-    return 0;
-}
+private:
+    static bool compare(const shared_ptr<Quote> &lhs,
+                        const shared_ptr<Quote>&rhs)
+    {
+        return lhs->isbn()<rhs->isbn();
+    }
+    multiset<shared_ptr<Quote>,decltype(compare)*>items{compare};
+};
 
 double print_total(std::ostream &os, const Quote &item, size_t n)
 {
@@ -197,4 +222,30 @@ double print_total(std::ostream &os, const Quote &item, size_t n)
        << "# sold: " << n << " total due: " << ret << std::endl;
 
     return ret;
+}
+double Basket::total_receipt(ostream &os)const
+{
+    double sum = 0.0;
+    for(auto iter = items.cbegin();
+            iter != items.cend();
+            iter = items.upper_bound(*iter))
+    {
+        sum+=print_total(os,**iter,items.count(*iter));    
+    }
+    os<<"Total Sales: "<<sum<<endl;
+    return sum;
+}
+
+
+
+int main()
+{
+    //freopen("I:\\Algorithms\\git\\Algorithm\\Algorithm\\input.txt","r",stdin);//
+    
+    ios::sync_with_stdio(false);
+    
+    
+    
+    
+    return 0;
 }
