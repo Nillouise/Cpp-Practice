@@ -8,7 +8,9 @@ public:
     static double rate = 6.5;
     //这个应该是对的，但不能被其他地方是用
     static const int vecSize = 20;
-    //这个应该是对的，因为vecSize是常量
+    //这个应该是对的，因为vecSize是常量//错了！！！
+    //we may not specify an in-class initializer inside parentheses.
+    //就是说静态变量不能调用构造函数
     static vector<double> vec(vecSize);
 };
 
