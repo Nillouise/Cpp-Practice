@@ -11,15 +11,14 @@ int main()
     
     ios::sync_with_stdio(false);
     
-    int i=0;
-    decltype(i) a = i;//a 是int
-    a++;
-    cout<<i;
-    
-    const string s = "fsfd";
-    for(auto &c :s){
-        cout<<c;
+    int i;
+    cin>>i;
+    const int a = i;
+    int arr[a]={100,100,100};//这段代码好奇怪
+    for(auto b:arr){
+        cout<<b<<endl;
     }
+    
     
     return 0;
 }

@@ -11,15 +11,8 @@ int main()
     
     ios::sync_with_stdio(false);
     
-    int i=0;
-    decltype(i) a = i;//a 是int
-    a++;
-    cout<<i;
     
-    const string s = "fsfd";
-    for(auto &c :s){
-        cout<<c;
-    }
+    
     
     return 0;
 }

@@ -10,16 +10,9 @@ int main()
     //freopen("I:\\Algorithms\\git\\Algorithm\\Algorithm\\input.txt","r",stdin);//
     
     ios::sync_with_stdio(false);
+    int a = 1/0;
+    cout<<"ok"<<endl;
     
-    int i=0;
-    decltype(i) a = i;//a 是int
-    a++;
-    cout<<i;
-    
-    const string s = "fsfd";
-    for(auto &c :s){
-        cout<<c;
-    }
     
     return 0;
 }
