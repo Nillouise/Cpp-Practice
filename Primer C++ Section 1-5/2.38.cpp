@@ -16,10 +16,6 @@ int main()
     a++;
     cout<<i;
     
-    const string s = "fsfd";
-    for(auto &c :s){
-        cout<<c;
-    }
     
     return 0;
 }
