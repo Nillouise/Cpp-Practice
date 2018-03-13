@@ -17,7 +17,6 @@ void operator delete(void * p) noexcept//记得这里要写noexcept
     free(p);
 }
 
-
 int main()
 {
     freopen("I:\\Algorithms\\git\\Algorithm\\Algorithm\\input.txt","r",stdin);//
