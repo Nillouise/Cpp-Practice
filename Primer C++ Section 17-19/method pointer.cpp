@@ -8,8 +8,17 @@ public:
     char get_cursor() const{
         return contents[cursor];
     }
-    char get() const;
-    char get(pos ht,pos wd)const;
+    char get() const{};
+    char get(pos ht,pos wd)const{};
+    Screen& home(){};
+    Screen& forward(){};
+    Screen& back(){};
+    Screen& up(){};
+    Screen& down(){};
+    using Action = Screen&(Screen::*)();//感觉这个可能是重点
+    enum Directions{HOME,FORWARD,BACK,UP,DOWN};
+    Screen& move(Directions);
+    
     static const string Screen::*data(){
         return &Screen::contents;
     }
@@ -18,9 +27,22 @@ public:
     }
     
 private:
+    static Action Menu[];
     string contents;
     pos cursor;
     pos height,width;
+};
+
+Screen& Screen::move(Directions cm)
+{
+    return (this->*Menu[cm])();
+}
+Screen::Action Screen::Menu[] = {
+    &Screen::home,
+    &Screen::forward,
+    &Screen::back,
+    &Screen::up,
+    &Screen::down,
 };
 
 
@@ -38,7 +60,8 @@ int main()
     cout<<d<<endl;
     cout<<(s.*p)<<endl;
     
-    
+    // auto pmf = &Screen::get_cursor;
+    auto pmf = &Screen::get;
     
     return 0;
 }
