@@ -55,6 +55,7 @@ Token::Token(Token&&t){
     }else{
         copyUnion(t);
     }
+    tok = std::move(t.tok);//注意enum类也被移动赋值
 }
 
 Token &Token::operator=(int i)
@@ -103,6 +104,7 @@ Token &Token::operator=(const Token &t)
     return *this;
 }
 
+//下面的实现很蠢
 Token& Token::operator(Token && t){
     if(tok == STR&&t.tok!=STR)sval.~string();
     if(tok == SDAT&&t.tok!=SDAT)sdat.~Sales_data();
@@ -115,6 +117,16 @@ Token& Token::operator(Token && t){
     tok = t.tok;
     return *this;
 }
+//move constructor
+// Token& Token::operator=(Token&& t){
+//     if(this != &t){
+//         this->~Token();
+//         copyUnion(t);
+//         tok = std::move(t.tok);
+//     }
+//     return *this;
+// }
+
 
 Token& Token::operator=(const Sales_data &rhs){
     if(tok==STR){
